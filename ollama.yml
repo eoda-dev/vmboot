@@ -2,8 +2,5 @@
 - hosts: all
   # connection: local
   become: true
-  vars:
-    packages:
-      - git
   roles:
-    - apt
+    - ollama

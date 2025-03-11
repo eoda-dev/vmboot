@@ -1,0 +1,46 @@
+---
+# Manual install: https://github.com/ollama/ollama/blob/main/docs/linux.md
+- name: Check Ollama installation
+  ansible.builtin.stat:
+    path: /usr/bin/ollama
+  register: ollama_executable
+
+- name: Download Ollama
+  become: true
+  ansible.builtin.get_url:
+    url: https://ollama.com/download/ollama-linux-amd64.tgz
+    dest: /usr/bin/ollama
+    mode: "0755"
+  tags:
+    - never
+
+- name: Download Ollama
+  ansible.builtin.shell:
+    cmd: |
+      curl -L https://ollama.com/download/ollama-linux-amd64.tgz -o ollama-linux-amd64.tgz
+      tar -C /usr -xzf ollama-linux-amd64.tgz
+      rm ollama-linux-amd64.tgz
+  when: not ollama_executable.stat.exists
+
+- name: Create Ollama user
+  ansible.builtin.user:
+    name: ollama
+    home: /usr/share/ollama
+    create_home: true
+    system: true
+    shell: /bin/false
+
+- name: Create Ollama service
+  ansible.builtin.copy:
+    src: files/ollama.service
+    dest: /etc/systemd/system/ollama.service
+
+- name: Start Ollama service
+  ansible.builtin.service:
+    name: ollama.service
+    enabled: true
+    state: started
+
+- name: Pull Ollama model
+  ansible.builtin.shell:
+    cmd: ollama pull gemma:2b
