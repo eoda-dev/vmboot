@@ -1,0 +1,14 @@
+{
+    "playbooks": [
+        {
+            "name": "ollama",
+            "playbook": "ollama.yml",
+            "description": "Installs Ollama as a service."
+        },
+        {
+            "name": "ubuntu",
+            "playbook": "ubuntu.yml",
+            "description": "Just a simple test playbook to get started."
+        }
+    ]
+}
