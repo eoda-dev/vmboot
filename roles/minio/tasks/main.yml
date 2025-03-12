@@ -1,0 +1,27 @@
+---
+- name: Check MinIO config
+  ansible.builtin.stat:
+    path: /etc/default/minio
+  register: minio_config
+
+- name: Add MinIO config
+  ansible.builtin.template:
+    src: config
+    dest: /etc/default/minio
+  when: not minio_config.stat.exists
+
+- name: Add MinIO system user
+  ansible.builtin.user:
+    name: minio-user
+    home: "{{ minio_volumes }}"
+    system: true
+
+- name: Install MinIO
+  ansible.builtin.apt:
+    deb: "https://dl.min.io/server/minio/release/linux-amd64/archive/minio_{{ minio_version }}_amd64.deb"
+
+- name: Start MinIO service
+  ansible.builtin.service:
+    name: minio
+    enabled: true
+    state: started
