@@ -1,0 +1,22 @@
+---
+- name: Check R installation
+  ansible.builtin.stat:
+    path: /opt/R/{{ R_VERSION }}/bin/R
+  register: r_executable
+
+- name: Install R
+  ansible.builtin.apt:
+    deb: "https://cdn.rstudio.com/r/ubuntu-2404/pkgs/r-{{ R_VERSION }}_1_amd64.deb"
+  when: not r_executable.stat.exists
+
+- name: Create symlinks
+  ansible.builtin.shell:
+    cmd: ln -s /opt/R/{{ R_VERSION }}/bin/{{ item }} /usr/local/bin/{{ item }}
+  loop:
+    - R
+    - Rscript
+  when: not r_executable.stat.exists
+
+- name: Install RStudio
+  ansible.builtin.apt:
+    deb: "https://download2.rstudio.org/server/jammy/amd64/rstudio-server-{{ RSTUDIO_VERSION }}-amd64.deb"
