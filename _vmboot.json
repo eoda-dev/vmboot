@@ -6,6 +6,11 @@
             "description": "Installs Ollama as a service."
         },
         {
+            "name": "rstudio",
+            "playbook": "rstudio.yml",
+            "description": "Installs R and RStudio Open Source IDE listening on port 8787."
+        },
+        {
             "name": "ubuntu",
             "playbook": "ubuntu.yml",
             "description": "Just a simple test playbook to get started."
