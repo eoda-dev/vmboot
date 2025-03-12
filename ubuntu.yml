@@ -1,9 +1,10 @@
 ---
-- hosts: "{{ HOST | default('127.0.0.1') }}"
+- hosts: "{{ HOST | HOSTNAME | default('127.0.0.1') }}"
   # connection: local
   become: true
   vars:
     packages:
       - git
+      - jq
   roles:
     - apt
