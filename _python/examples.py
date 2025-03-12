@@ -19,5 +19,10 @@ def render_cloud_init_tpl() -> None:
     print(json.dumps(yaml.safe_load(cloud_init)))
 
 
+x = """content: |
+    some test
+    and even more"""
+
 if __name__ == "__main__":
     render_cloud_init_tpl()
+    # print(yaml.safe_dump(yaml.safe_load(x), default_style="|"))
