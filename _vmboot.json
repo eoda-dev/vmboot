@@ -20,5 +20,6 @@
             "playbook": "ubuntu.yml",
             "description": "Just a simple test playbook to get started."
         }
-    ]
+    ],
+    "repo": "https://github.com/eoda-dev/vmboot.git"
 }

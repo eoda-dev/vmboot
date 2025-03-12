@@ -8,9 +8,12 @@ CLOUD_INIT_TPL: str = (
     "https://raw.githubusercontent.com/eoda-dev/vmboot/refs/heads/main/cloud-init/base.tpl.yml"
 )
 
+session = requests.Session()
+session.cache_disabled = True
+
 
 def render_cloud_init_tpl() -> None:
-    with requests.get(CLOUD_INIT_TPL) as repsponse:
+    with session.get(CLOUD_INIT_TPL) as repsponse:
         cloud_init = jinja2.Template(repsponse.text).render(
             user="steve", public_ssh_key="steve's key"
         )
