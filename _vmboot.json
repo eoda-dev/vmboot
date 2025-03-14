@@ -16,6 +16,11 @@
             "description": "Installs MinIO. See '/etc/default/minio' for the admin password."
         },
         {
+            "name": "docker-ce",
+            "playbook": "docker.yml",
+            "description": "Installs latest Docker CE Engine on Ubuntu."
+        },
+        {
             "name": "ubuntu",
             "playbook": "ubuntu.yml",
             "description": "Just a simple test playbook to get started."
