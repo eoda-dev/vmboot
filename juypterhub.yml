@@ -1,0 +1,13 @@
+---
+- hosts: "{{ HOSTNAME | default('127.0.0.1') }}"
+  # connection: local
+  become: true
+  tasks:
+    - name: Get admin user
+      ansible.builtin.shell:
+        cmd: ls /home | xargs
+      register: users
+
+    - name: Install JupyerHub (tljh)
+      ansible.builtin.shell:
+        cmd: "curl -L https://tljh.jupyter.org/bootstrap.py | python3 - --admin {{ users.stdout.split()[0] }}"

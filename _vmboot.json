@@ -21,6 +21,11 @@
             "description": "Installs latest Docker CE Engine on Ubuntu."
         },
         {
+            "name": "jupyterhub",
+            "playbook": "jupyterhub.yml",
+            "description": "Installs JupyterHub."
+        },
+        {
             "name": "ubuntu",
             "playbook": "ubuntu.yml",
             "description": "Just a simple test playbook to get started."
